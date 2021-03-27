@@ -56,7 +56,7 @@ class Flake8BanditConfig(NamedTuple):
                 for path in paths:
                     # convert absolute to relative
                     if path.startswith("/"):
-                        path = "." + path
+                        path = Path(Path.cwd(), path[1:])
                     target_paths.add(Path(path))
 
             if bandit_config.get("exclude"):
@@ -64,7 +64,7 @@ class Flake8BanditConfig(NamedTuple):
                 for path in paths:
                     # convert absolute to relative
                     if path.startswith("/"):
-                        path = "." + path
+                        path = Path(Path.cwd(), path[1:])
                     excluded_paths.add(Path(path))
 
         except (configparser.Error, KeyError, TypeError) as e:
