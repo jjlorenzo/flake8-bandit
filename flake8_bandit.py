@@ -52,7 +52,8 @@ class Flake8BanditConfig(NamedTuple):
 
             # file include/exclude
             if bandit_config.get("targets"):
-                paths = bandit_config.get("targets").split(",")
+                # paths = bandit_config.get("targets").split(",")
+                paths = [elem.strip() for elem in bandit_config.get("targets").split(",")]
                 for path in paths:
                     # convert absolute to relative
                     if path.startswith("/"):
@@ -60,7 +61,8 @@ class Flake8BanditConfig(NamedTuple):
                     target_paths.add(Path(path))
 
             if bandit_config.get("exclude"):
-                paths = bandit_config.get("exclude").split(",")
+                # paths = bandit_config.get("exclude").split(",")
+                paths = [elem.strip() for elem in bandit_config.get("exclude").split(",")]
                 for path in paths:
                     # convert absolute to relative
                     if path.startswith("/"):
